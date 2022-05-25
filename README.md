@@ -1,5 +1,5 @@
 # weirdle_DB
-Code for interacting with http://weirdle.app's database and for the reddit bot--the databse is either updated through the reddit api bot or manually updated (via a script here) for twitter, facebook, etc.
+Code for interacting with http://weirdle.app's database (not actually--yet--connected to weirdle.app) and for the reddit bot--the databse is either updated through the reddit api bot or manually updated (via a script here) for twitter, facebook, etc.
 
 To understand this code, you will first need to understand weirdle.app.
 
