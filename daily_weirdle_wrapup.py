@@ -1,11 +1,10 @@
-from postgres import postgres
-
 #This script gives a summary of a Weirdle's statistics. It's meant to be run at the end of the
 #   Weirdle's day--for any person in any time zone (which means >48 hours after it is first
 #   available for the first time zones.) The output is to be used to update the daily Weirdle
 #   posts on reddit, once the Weirdle is over for everyone.
 #Future plans: use this in an automation for the daily posts on reddit, as well as de-commissioning
 #   the older posts as their daily weirdles are no longer available to play.
+from postgres import postgres
 
 #streaks() and work very similarly to the one in reddit_bot.py, however the key difference is that
 #   this one requires a "max_weirdle_number"--since that number is already assumed to be the one
