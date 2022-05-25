@@ -1,0 +1,85 @@
+=CREATED!=
+WEIRDLERS
+-ID				#
+-REDDIT_UN
+-TWITTER_UN
+-FACEBOOK_UN
+-MASTODON_UN
+
+SONGS
+-SONG_ID
+-SONG_TITLEs
+-ALBUM_ID
+-SOUNDCLOUD
+-YOUTUBE
+
+WEIRDLES
+-WEIRDLE_ID		#
+-SONG_ID		//FOREIGN KEY
+-DATE
+
+=TO DO=
+
+ALBUMS
+-ALBUM_ID
+-ALBUM_YEAR
+
+USER_SCORES
+-USER_ID		//FOREIGN KEY
+-WEIRDLE_ID		//FOREIGN KEY
+-FOUND			//Twitter, Reddit, etc
+-TIMESTAMP		//UTC time I guess
+-TRIES			//out of 7 (7=lose)
+
+#Getting Song Names tied to Username tied to # of tries
+SELECT weirdlers.reddit_un, songs.song_name, user_scores.tries
+FROM weirdlers
+INNER JOIN user_scores
+	ON weirdlers.weirdler_id = user_scores.user_id
+INNER JOIN weirdles
+	ON user_scores.weirdle_id = weirdles.weirdle_id
+INNER JOIN songs
+	ON songs.song_id = weirdles.song_id
+WHERE user_id = 0							#can also be weirdlers.twitter_un, 
+ORDER BY weirdles.weirdle_id ASC;				#reddit_un, facebook_un, mastodon_un
+
+
+
+#Getting all of one user's results
+SELECT *
+FROM user_scores
+INNER JOIN weirdlers
+	ON user_scores.user_id = weirdlers.weirdler_id
+WHERE lower(weirdlers.twitter_un) = 'pantslessaaron' #weirdlers.reddit_un, facebook_un, mastodon_un; 
+ORDER BY weirdle_id;								 	#above can also be weirdlers.weirdler_id
+
+#Adding Weirdle Result:
+INSERT INTO user_scores
+(user_id, weirdle_id, tries)
+VALUES (71,25,1);
+
+#Getting total # of Weirdles Completed based on reddit (or whatever) un/username
+SELECT COUNT(*)
+FROM user_scores
+INNER JOIN weirdlers
+	ON user_scores.user_id = weirdlers.weirdler_id
+WHERE lower(weirdlers.reddit_un) = 'animatorgeek';
+
+
+#Getting all users with a certain number of completed weirdles:
+SELECT user_id, COUNT(*) AS weirdle_count
+FROM user_scores
+GROUP BY user_id
+HAVING COUNT(*) = 4
+ORDER BY user_id;
+
+#Getting average of a Weirdle's self-submissions
+SELECT avg(tries)
+FROM user_scores
+WHERE weirdle_id = 26
+
+#Getting counts of all Weirdle tries
+SELECT weirdle_id, count(*)
+FROM user_scores
+GROUP BY weirdle_id
+ORDER BY weirdle_id;
