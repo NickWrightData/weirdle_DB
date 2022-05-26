@@ -2,6 +2,7 @@
 #   This includes all text for calls to the database.
 #I'm planning on replacing the word "weirdler" with "user" throughout this code and the database,
 #   as "weirdler" is a little confusing and a little hard to spell.
+#TO DO: GET RID OF camelCase!
 
 import psycopg2            #for connecting to DB
 from psycopg2 import sql
